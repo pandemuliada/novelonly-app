@@ -42,6 +42,6 @@ export default ChapterDetailPage;
 ChapterDetailPage.getInitialProps = async (ctx) => {
   return {
     chapter: TBATEChapters[ctx.query.id],
-    id,
+    id: ctx.query.id,
   };
 };
