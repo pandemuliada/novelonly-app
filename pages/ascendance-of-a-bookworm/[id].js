@@ -19,10 +19,10 @@ const ChapterDetailPage = (props) => {
   return (
     <>
       <Head>
-        <title>Ascendance Of A Bookworm - {currentChapter.title}</title>
+        <title>Ascendance Of A Bookworm - {currentChapter?.title}</title>
         <meta
           name="description"
-          content={`Ascendance Of A Bookworm - ${currentChapter.title}`}
+          content={`Ascendance Of A Bookworm - ${currentChapter?.title}`}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -37,14 +37,14 @@ const ChapterDetailPage = (props) => {
         <Link href="/ascendance-of-a-bookworm">
           <a>Back to Chapters</a>
         </Link>
-        <h1>Ascendance Of A Bookworm - {currentChapter.title}</h1>
+        <h1>Ascendance Of A Bookworm - {currentChapter?.title}</h1>
 
         <div
           style={{
             lineHeight: "1.8rem",
           }}
         >
-          <ReactMarkdown children={currentChapter.content} />
+          <ReactMarkdown children={currentChapter?.content} />
         </div>
 
         <div
@@ -55,9 +55,7 @@ const ChapterDetailPage = (props) => {
           }}
         >
           {!!previousChapter ? (
-            <Link
-              href={`/the-beginning-after-the-end/${previousChapter.index}`}
-            >
+            <Link href={`/ascendance-of-a-bookworm/${previousChapter.index}`}>
               <a
                 style={{
                   display: "block",
@@ -72,7 +70,7 @@ const ChapterDetailPage = (props) => {
             <div />
           )}
           {!!nextChapter && (
-            <Link href={`/the-beginning-after-the-end/${nextChapter.index}`}>
+            <Link href={`/ascendance-of-a-bookworm/${nextChapter.index}`}>
               <a
                 style={{
                   display: "block",

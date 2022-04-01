@@ -19,10 +19,10 @@ const ChapterDetailPage = (props) => {
   return (
     <>
       <Head>
-        <title>The Beginning After The End - {currentChapter.title}</title>
+        <title>The Beginning After The End - {currentChapter?.title}</title>
         <meta
           name="description"
-          content={`The Beginning After The End - ${currentChapter.title}`}
+          content={`The Beginning After The End - ${currentChapter?.title}`}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -37,14 +37,14 @@ const ChapterDetailPage = (props) => {
         <Link href="/the-beginning-after-the-end">
           <a>Back to Chapters</a>
         </Link>
-        <h1>The Beginning After The End - {currentChapter.title}</h1>
+        <h1>The Beginning After The End - {currentChapter?.title}</h1>
 
         <div
           style={{
             lineHeight: "1.8rem",
           }}
         >
-          <ReactMarkdown children={currentChapter.content} />
+          <ReactMarkdown children={currentChapter?.content} />
         </div>
 
         <div

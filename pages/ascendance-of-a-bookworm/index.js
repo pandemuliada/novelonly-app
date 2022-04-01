@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 
-import TBATEChapters from "novels/the-beginning-after-the-end.json";
+import AscendanceOfABookwormChapters from "novels/ascendance-of-a-bookworm.json";
 import useLocalStorage from "use-local-storage";
 
 export default function Index() {
@@ -39,13 +39,13 @@ export default function Index() {
                 padding: 20,
               }}
             >
-              Last Read - {TBATEChapters[lastReadChapter].title}
+              Last Read - {AscendanceOfABookwormChapters[lastReadChapter].title}
             </a>
           </Link>
         )}
 
         <div>
-          {TBATEChapters.map((chapter, index) => {
+          {AscendanceOfABookwormChapters.map((chapter, index) => {
             return (
               <p>
                 <Link href={`/ascendance-of-a-bookworm/${index}`}>
