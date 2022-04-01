@@ -1,5 +1,5 @@
 import Head from "next/head";
-import TBATEChapters from "novels/the-beginning-after-the-end.json";
+import AscendanceOfABookwormChapters from "novels/ascendance-of-a-bookworm.json";
 import ReactMarkdown from "react-markdown";
 import { useEffect } from "react";
 import useLocalStorage from "use-local-storage";
@@ -9,7 +9,7 @@ const ChapterDetailPage = (props) => {
   const { currentChapter, previousChapter, nextChapter, id } = props;
 
   const [lastReadChapter, setLastReadChapter] = useLocalStorage(
-    "last_read_chapter/tbate"
+    "last_read_chapter/ascendance-of-a-bookworm"
   );
 
   useEffect(() => {
@@ -19,10 +19,10 @@ const ChapterDetailPage = (props) => {
   return (
     <>
       <Head>
-        <title>The Beginning After The End - {currentChapter.title}</title>
+        <title>Ascendance Of A Bookworm - {currentChapter.title}</title>
         <meta
           name="description"
-          content={`The Beginning After The End - ${currentChapter.title}`}
+          content={`Ascendance Of A Bookworm - ${currentChapter.title}`}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -34,10 +34,10 @@ const ChapterDetailPage = (props) => {
           padding: "24px",
         }}
       >
-        <Link href="/the-beginning-after-the-end">
+        <Link href="/ascendance-of-a-bookworm">
           <a>Back to Chapters</a>
         </Link>
-        <h1>The Beginning After The End - {currentChapter.title}</h1>
+        <h1>Ascendance Of A Bookworm - {currentChapter.title}</h1>
 
         <div
           style={{
@@ -99,24 +99,24 @@ ChapterDetailPage.getInitialProps = async (ctx) => {
   if (ctx.query.id > 0) {
     previousChapter = {
       index: parseInt(ctx.query.id) - 1,
-      ...TBATEChapters[parseInt(ctx.query.id) - 1],
+      ...AscendanceOfABookwormChapters[parseInt(ctx.query.id) - 1],
     };
   } else {
     previousChapter = null;
   }
 
-  if (ctx.query.id == TBATEChapters.length - 1) {
+  if (ctx.query.id == AscendanceOfABookwormChapters.length - 1) {
     nextChapter = null;
   } else {
     nextChapter = {
       index: parseInt(ctx.query.id) + 1,
-      ...TBATEChapters[parseInt(ctx.query.id) + 1],
+      ...AscendanceOfABookwormChapters[parseInt(ctx.query.id) + 1],
     };
   }
 
   return {
     id: ctx.query.id,
-    currentChapter: TBATEChapters[ctx.query.id],
+    currentChapter: AscendanceOfABookwormChapters[ctx.query.id],
     previousChapter,
     nextChapter,
   };

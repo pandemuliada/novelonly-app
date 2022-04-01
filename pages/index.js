@@ -1,15 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 
-import TBATEChapters from "novels/the-beginning-after-the-end.json";
-import useLocalStorage from "use-local-storage";
-
 export default function Home() {
-  const [lastReadChapter, setLastReadChapter] = useLocalStorage(
-    "last_read_chapter/tbate"
-  );
-
-  console.log(lastReadChapter);
   return (
     <div>
       <Head>
@@ -25,33 +17,19 @@ export default function Home() {
           padding: "24px",
         }}
       >
-        <h1>The Beginning After The End</h1>
+        <h1>Novel Reader</h1>
 
-        {!!lastReadChapter && (
-          <Link href={`/the-beginning-after-the-end/${lastReadChapter}`}>
-            <a
-              style={{
-                display: "block",
-                background: "#dedede",
-                padding: 20,
-              }}
-            >
-              Last Read - {TBATEChapters[lastReadChapter].title}
-            </a>
+        <p>
+          <Link href="/ascendance-of-a-bookworm">
+            <a>Ascendance Of A Bookworm</a>
           </Link>
-        )}
+        </p>
 
-        <div>
-          {TBATEChapters.map((chapter, index) => {
-            return (
-              <p>
-                <Link href={`/the-beginning-after-the-end/${index}`}>
-                  <a>{chapter.title}</a>
-                </Link>
-              </p>
-            );
-          })}
-        </div>
+        <p>
+          <Link href="/the-beginning-after-the-end">
+            <a>The Beginning After The End</a>
+          </Link>
+        </p>
       </main>
     </div>
   );
