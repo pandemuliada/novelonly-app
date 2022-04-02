@@ -32,13 +32,7 @@ export default function Index() {
 
         {!!lastReadChapter && (
           <Link href={`/ascendance-of-a-bookworm/${lastReadChapter}`}>
-            <a
-              style={{
-                display: "block",
-                background: "#dedede",
-                padding: 20,
-              }}
-            >
+            <a className="card">
               Last Read - {AscendanceOfABookwormChapters[lastReadChapter].title}
             </a>
           </Link>

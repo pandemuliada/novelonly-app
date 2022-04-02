@@ -14,3 +14,22 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.card {
+  display: block;
+  background-color: #dedede;
+  padding: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #333;
+    color: #fefefe;
+  }
+
+  .card {
+    border: 1px solid #fff;
+    background-color: #333;
+    padding: 20px;
+  }
+}

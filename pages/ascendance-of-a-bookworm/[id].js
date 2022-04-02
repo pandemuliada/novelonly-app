@@ -56,30 +56,14 @@ const ChapterDetailPage = (props) => {
         >
           {!!previousChapter ? (
             <Link href={`/ascendance-of-a-bookworm/${previousChapter.index}`}>
-              <a
-                style={{
-                  display: "block",
-                  background: "#dedede",
-                  padding: 16,
-                }}
-              >
-                Prev : {previousChapter.title}
-              </a>
+              <a className="card">Prev : {previousChapter.title}</a>
             </Link>
           ) : (
             <div />
           )}
           {!!nextChapter && (
             <Link href={`/ascendance-of-a-bookworm/${nextChapter.index}`}>
-              <a
-                style={{
-                  display: "block",
-                  background: "#dedede",
-                  padding: 16,
-                }}
-              >
-                Next : {nextChapter.title}
-              </a>
+              <a className="card">Next : {nextChapter.title}</a>
             </Link>
           )}
         </div>

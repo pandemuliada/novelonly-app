@@ -58,30 +58,14 @@ const ChapterDetailPage = (props) => {
             <Link
               href={`/the-beginning-after-the-end/${previousChapter.index}`}
             >
-              <a
-                style={{
-                  display: "block",
-                  background: "#dedede",
-                  padding: 16,
-                }}
-              >
-                Prev : {previousChapter.title}
-              </a>
+              <a className="card">Prev : {previousChapter.title}</a>
             </Link>
           ) : (
             <div />
           )}
           {!!nextChapter && (
             <Link href={`/the-beginning-after-the-end/${nextChapter.index}`}>
-              <a
-                style={{
-                  display: "block",
-                  background: "#dedede",
-                  padding: 16,
-                }}
-              >
-                Next : {nextChapter.title}
-              </a>
+              <a className="card">Next : {nextChapter.title}</a>
             </Link>
           )}
         </div>

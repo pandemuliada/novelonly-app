@@ -32,13 +32,7 @@ export default function Index() {
 
         {!!lastReadChapter && (
           <Link href={`/the-beginning-after-the-end/${lastReadChapter}`}>
-            <a
-              style={{
-                display: "block",
-                background: "#dedede",
-                padding: 20,
-              }}
-            >
+            <a className="card">
               Last Read - {TBATEChapters[lastReadChapter].title}
             </a>
           </Link>
