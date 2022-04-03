@@ -23,13 +23,13 @@ a {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background: #333;
-    color: #fefefe;
+    background: #121212;
+    color: #b0b0b0;
   }
 
   .card {
-    border: 1px solid #fff;
-    background-color: #333;
+    border: 1px solid #b0b0b0;
+    background-color: #121212;
     padding: 20px;
   }
 }
