@@ -29,7 +29,7 @@ const ChapterDetailPage = (props) => {
 
       <div
         style={{
-          maxWidth: 500,
+          maxWidth: 600,
           margin: "auto",
           padding: "24px",
         }}
@@ -41,7 +41,8 @@ const ChapterDetailPage = (props) => {
 
         <div
           style={{
-            lineHeight: "1.8rem",
+            lineHeight: "2.0rem",
+            fontSize: 18,
           }}
         >
           <ReactMarkdown children={currentChapter?.content} />
