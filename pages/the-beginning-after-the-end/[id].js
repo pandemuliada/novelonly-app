@@ -39,7 +39,7 @@ const ChapterDetailPage = (props) => {
           <a>Back to Chapters</a>
         </Link>
 
-        <h1 className="text-3xl my-5">
+        <h1 className="text-3xl font-bold my-5">
           The Beginning After The End - {currentChapter?.title}
         </h1>
 

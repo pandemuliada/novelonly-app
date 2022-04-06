@@ -28,7 +28,7 @@ export default function Index() {
           <a>Back to Home</a>
         </Link>
 
-        <h1 className="text-3xl my-5">The Beginning After The End</h1>
+        <h1 className="text-3xl font-bold my-5">The Beginning After The End</h1>
 
         {!!lastReadChapter && (
           <Link href={`/the-beginning-after-the-end/${lastReadChapter}`}>

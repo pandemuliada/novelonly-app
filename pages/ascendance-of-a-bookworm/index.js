@@ -28,7 +28,7 @@ export default function Index() {
           <a>Back to Home</a>
         </Link>
 
-        <h1 className="text-3xl my-5">Ascendance Of A Bookworm</h1>
+        <h1 className="text-3xl font-bold my-5">Ascendance Of A Bookworm</h1>
 
         {!!lastReadChapter && (
           <Link href={`/ascendance-of-a-bookworm/${lastReadChapter}`}>
