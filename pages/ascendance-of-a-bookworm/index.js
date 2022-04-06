@@ -19,7 +19,7 @@ export default function Index() {
 
       <main
         style={{
-          maxWidth: 500,
+          maxWidth: 600,
           margin: "auto",
           padding: "24px",
         }}
@@ -28,11 +28,11 @@ export default function Index() {
           <a>Back to Home</a>
         </Link>
 
-        <h1>Ascendance Of A Bookworm</h1>
+        <h1 className="text-3xl my-5">Ascendance Of A Bookworm</h1>
 
         {!!lastReadChapter && (
           <Link href={`/ascendance-of-a-bookworm/${lastReadChapter}`}>
-            <a className="card">
+            <a className="card text-lg mb-5">
               Last Read - {AscendanceOfABookwormChapters[lastReadChapter].title}
             </a>
           </Link>
@@ -41,7 +41,7 @@ export default function Index() {
         <div>
           {AscendanceOfABookwormChapters.map((chapter, index) => {
             return (
-              <p>
+              <p className="mb-2 text-lg">
                 <Link href={`/ascendance-of-a-bookworm/${index}`}>
                   <a>{chapter.title}</a>
                 </Link>

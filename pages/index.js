@@ -17,15 +17,15 @@ export default function Home() {
           padding: "24px",
         }}
       >
-        <h1>Novel Reader</h1>
+        <h1 className="text-3xl font-bold mb-5">Novel Reader</h1>
 
-        <p>
+        <p className="mb-2 text-lg">
           <Link href="/ascendance-of-a-bookworm">
             <a>Ascendance Of A Bookworm</a>
           </Link>
         </p>
 
-        <p>
+        <p className="mb-2 text-lg">
           <Link href="/the-beginning-after-the-end">
             <a>The Beginning After The End</a>
           </Link>

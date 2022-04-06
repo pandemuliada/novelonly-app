@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 import Link from "next/link";
+import rehypeRaw from "rehype-raw";
 
 const ChapterDetailPage = (props) => {
   const { currentChapter, previousChapter, nextChapter, id } = props;
@@ -37,15 +38,19 @@ const ChapterDetailPage = (props) => {
         <Link href="/the-beginning-after-the-end">
           <a>Back to Chapters</a>
         </Link>
-        <h1>The Beginning After The End - {currentChapter?.title}</h1>
 
-        <div
-          style={{
-            lineHeight: "2.0rem",
-            fontSize: 18,
-          }}
-        >
-          <ReactMarkdown children={currentChapter?.content} />
+        <h1 className="text-3xl my-5">
+          The Beginning After The End - {currentChapter?.title}
+        </h1>
+
+        <div className="text-lg leading-8">
+          <ReactMarkdown
+            rehypePlugins={[rehypeRaw]}
+            children={currentChapter?.content}
+            components={{
+              p: (props) => <p {...props} className="mb-4 " />,
+            }}
+          />
         </div>
 
         <div

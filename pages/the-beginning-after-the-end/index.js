@@ -19,7 +19,7 @@ export default function Index() {
 
       <main
         style={{
-          maxWidth: 500,
+          maxWidth: 600,
           margin: "auto",
           padding: "24px",
         }}
@@ -28,11 +28,11 @@ export default function Index() {
           <a>Back to Home</a>
         </Link>
 
-        <h1>The Beginning After The End</h1>
+        <h1 className="text-3xl my-5">The Beginning After The End</h1>
 
         {!!lastReadChapter && (
           <Link href={`/the-beginning-after-the-end/${lastReadChapter}`}>
-            <a className="card">
+            <a className="card text-lg mb-5">
               Last Read - {TBATEChapters[lastReadChapter].title}
             </a>
           </Link>
@@ -41,7 +41,7 @@ export default function Index() {
         <div>
           {TBATEChapters.map((chapter, index) => {
             return (
-              <p>
+              <p className="mb-2 text-lg">
                 <Link href={`/the-beginning-after-the-end/${index}`}>
                   <a>{chapter.title}</a>
                 </Link>
