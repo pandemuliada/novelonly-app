@@ -30,7 +30,11 @@ export default function Index(props) {
 
         {!!lastRead && (
           <Link href={`/${slug}/${lastRead}`}>
-            <a lassName="card text-lg mb-5"></a>
+            <a lassName="card text-lg mb-5">
+              <a className="card text-lg mb-5">
+                Last Read - {chapters?.[lastRead]?.title}
+              </a>
+            </a>
           </Link>
         )}
 
