@@ -1,20 +1,18 @@
 import Head from "next/head";
-import TBATEChapters from "novels/the-beginning-after-the-end.json";
 import ReactMarkdown from "react-markdown";
 import { useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 import Link from "next/link";
 import rehypeRaw from "rehype-raw";
+import axios from "axios";
 
 const ChapterDetailPage = (props) => {
-  const { currentChapter, previousChapter, nextChapter, id } = props;
+  const { currentChapter, previousChapter, nextChapter, slug, id } = props;
 
-  const [lastReadChapter, setLastReadChapter] = useLocalStorage(
-    "last_read_chapter/tbate"
-  );
+  const [_lastRead, setLastRead] = useLocalStorage(`last_read_chapter/${slug}`);
 
   useEffect(() => {
-    setLastReadChapter(id);
+    setLastRead(id);
   }, [id]);
 
   return (
@@ -82,32 +80,72 @@ const ChapterDetailPage = (props) => {
 
 export default ChapterDetailPage;
 
-ChapterDetailPage.getInitialProps = async (ctx) => {
-  let previousChapter = null;
-  let nextChapter = null;
-
-  if (ctx.query.id > 0) {
-    previousChapter = {
-      index: parseInt(ctx.query.id) - 1,
-      ...TBATEChapters[parseInt(ctx.query.id) - 1],
-    };
-  } else {
-    previousChapter = null;
-  }
-
-  if (ctx.query.id == TBATEChapters.length - 1) {
-    nextChapter = null;
-  } else {
-    nextChapter = {
-      index: parseInt(ctx.query.id) + 1,
-      ...TBATEChapters[parseInt(ctx.query.id) + 1],
-    };
-  }
+export async function getStaticPaths() {
+  const chapters = await axios
+    .get(
+      "https://novelonly-api.herokuapp.com/api/v1/the-beginning-after-the-end"
+    )
+    .then((res) => {
+      return res.data;
+    });
 
   return {
-    id: ctx.query.id,
-    currentChapter: TBATEChapters[ctx.query.id],
-    previousChapter,
-    nextChapter,
+    paths: chapters.map((chapter) => ({
+      params: {
+        id: chapter.index.toString(),
+      },
+    })),
+    fallback: true, // false or 'blocking'
   };
-};
+}
+
+export async function getStaticProps(context) {
+  const id = context.params.id;
+
+  const chapter = await axios
+    .get(
+      `https://novelonly-api.herokuapp.com/api/v1/the-beginning-after-the-end/${id}`
+    )
+    .then((res) => {
+      return res.data;
+    });
+
+  return {
+    props: {
+      id,
+      slug: "the-beginning-after-the-end",
+      currentChapter: chapter,
+    }, // will be passed to the page component as props
+    revalidate: 1800,
+  };
+}
+
+// ChapterDetailPage.getInitialProps = async (ctx) => {
+//   let previousChapter = null;
+//   let nextChapter = null;
+
+//   if (ctx.query.id > 0) {
+//     previousChapter = {
+//       index: parseInt(ctx.query.id) - 1,
+//       ...TBATEChapters[parseInt(ctx.query.id) - 1],
+//     };
+//   } else {
+//     previousChapter = null;
+//   }
+
+//   if (ctx.query.id == TBATEChapters.length - 1) {
+//     nextChapter = null;
+//   } else {
+//     nextChapter = {
+//       index: parseInt(ctx.query.id) + 1,
+//       ...TBATEChapters[parseInt(ctx.query.id) + 1],
+//     };
+//   }
+
+//   return {
+//     id: ctx.query.id,
+//     currentChapter: TBATEChapters[ctx.query.id],
+//     previousChapter,
+//     nextChapter,
+//   };
+// };
