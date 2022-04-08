@@ -5,6 +5,7 @@ import useLocalStorage from "use-local-storage";
 import Link from "next/link";
 import rehypeRaw from "rehype-raw";
 import axios from "axios";
+import { isEmpty } from "lodash";
 
 const ChapterDetailPage = (props) => {
   const { currentChapter, previousChapter, nextChapter, slug, id } = props;
@@ -100,11 +101,31 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const id = context.params.id;
+  const id = Number(context.params.id);
 
   const chapter = await axios
     .get(
       `https://novelonly-api.herokuapp.com/api/v1/the-beginning-after-the-end/${id}`
+    )
+    .then((res) => {
+      return res.data;
+    });
+
+  const previousChapter = await axios
+    .get(
+      `https://novelonly-api.herokuapp.com/api/v1/the-beginning-after-the-end/${
+        id - 1
+      }`
+    )
+    .then((res) => {
+      return res.data;
+    });
+
+  const nextChapter = await axios
+    .get(
+      `https://novelonly-api.herokuapp.com/api/v1/the-beginning-after-the-end/${
+        id + 1
+      }`
     )
     .then((res) => {
       return res.data;
@@ -115,6 +136,8 @@ export async function getStaticProps(context) {
       id,
       slug: "the-beginning-after-the-end",
       currentChapter: chapter,
+      previousChapter: isEmpty(previousChapter) ? null : previousChapter,
+      nextChapter: isEmpty(nextChapter) ? null : nextChapter,
     }, // will be passed to the page component as props
     revalidate: 1800,
   };

@@ -30,10 +30,8 @@ export default function Index(props) {
 
         {!!lastRead && (
           <Link href={`/${slug}/${lastRead}`}>
-            <a lassName="card text-lg mb-5">
-              <a className="card text-lg mb-5">
-                Last Read - {chapters?.[lastRead]?.title}
-              </a>
+            <a className="card text-lg mb-5">
+              Last Read - {chapters?.[lastRead]?.title}
             </a>
           </Link>
         )}
@@ -41,7 +39,7 @@ export default function Index(props) {
         <div>
           {chapters.map((chapter, index) => {
             return (
-              <p className="mb-2 text-lg">
+              <p key={chapter.title} className="mb-2 text-lg">
                 <Link href={`/${slug}/${index}`}>
                   <a>{chapter.title}</a>
                 </Link>
