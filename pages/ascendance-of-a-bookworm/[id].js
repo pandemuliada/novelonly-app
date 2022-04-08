@@ -1,20 +1,19 @@
 import Head from "next/head";
-import AscendanceOfABookwormChapters from "novels/ascendance-of-a-bookworm.json";
 import ReactMarkdown from "react-markdown";
 import { useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 import Link from "next/link";
 import rehypeRaw from "rehype-raw";
+import axios from "axios";
+import { isEmpty } from "lodash";
 
 const ChapterDetailPage = (props) => {
-  const { currentChapter, previousChapter, nextChapter, id } = props;
+  const { currentChapter, previousChapter, nextChapter, slug, id } = props;
 
-  const [lastReadChapter, setLastReadChapter] = useLocalStorage(
-    "last_read_chapter/ascendance-of-a-bookworm"
-  );
+  const [_lastRead, setLastRead] = useLocalStorage(`last_read_chapter/${slug}`);
 
   useEffect(() => {
-    setLastReadChapter(id);
+    setLastRead(id);
   }, [id]);
 
   return (
@@ -80,32 +79,62 @@ const ChapterDetailPage = (props) => {
 
 export default ChapterDetailPage;
 
-ChapterDetailPage.getInitialProps = async (ctx) => {
-  let previousChapter = null;
-  let nextChapter = null;
-
-  if (ctx.query.id > 0) {
-    previousChapter = {
-      index: parseInt(ctx.query.id) - 1,
-      ...AscendanceOfABookwormChapters[parseInt(ctx.query.id) - 1],
-    };
-  } else {
-    previousChapter = null;
-  }
-
-  if (ctx.query.id == AscendanceOfABookwormChapters.length - 1) {
-    nextChapter = null;
-  } else {
-    nextChapter = {
-      index: parseInt(ctx.query.id) + 1,
-      ...AscendanceOfABookwormChapters[parseInt(ctx.query.id) + 1],
-    };
-  }
+export async function getStaticPaths() {
+  const chapters = await axios
+    .get("https://novelonly-api.herokuapp.com/api/v1/ascendance-of-a-bookworm")
+    .then((res) => {
+      return res.data;
+    });
 
   return {
-    id: ctx.query.id,
-    currentChapter: AscendanceOfABookwormChapters[ctx.query.id],
-    previousChapter,
-    nextChapter,
+    paths: chapters.map((chapter) => ({
+      params: {
+        id: chapter.index.toString(),
+      },
+    })),
+    fallback: true, // false or 'blocking'
   };
-};
+}
+
+export async function getStaticProps(context) {
+  const id = Number(context.params.id);
+
+  const chapter = await axios
+    .get(
+      `https://novelonly-api.herokuapp.com/api/v1/ascendance-of-a-bookworm/${id}`
+    )
+    .then((res) => {
+      return res.data;
+    });
+
+  const previousChapter = await axios
+    .get(
+      `https://novelonly-api.herokuapp.com/api/v1/ascendance-of-a-bookworm/${
+        id - 1
+      }`
+    )
+    .then((res) => {
+      return res.data;
+    });
+
+  const nextChapter = await axios
+    .get(
+      `https://novelonly-api.herokuapp.com/api/v1/ascendance-of-a-bookworm/${
+        id + 1
+      }`
+    )
+    .then((res) => {
+      return res.data;
+    });
+
+  return {
+    props: {
+      id,
+      slug: "ascendance-of-a-bookworm",
+      currentChapter: chapter,
+      previousChapter: isEmpty(previousChapter) ? null : previousChapter,
+      nextChapter: isEmpty(nextChapter) ? null : nextChapter,
+    }, // will be passed to the page component as props
+    revalidate: 1800,
+  };
+}

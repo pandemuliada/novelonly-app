@@ -1,13 +1,11 @@
+import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
-
-import AscendanceOfABookwormChapters from "novels/ascendance-of-a-bookworm.json";
 import useLocalStorage from "use-local-storage";
 
-export default function Index() {
-  const [lastReadChapter, setLastReadChapter] = useLocalStorage(
-    "last_read_chapter/ascendance-of-a-bookworm"
-  );
+export default function Index(props) {
+  const { slug, chapters = [] } = props;
+  const [lastRead, setLastRead] = useLocalStorage(`last_read_chapter/${slug}`);
 
   return (
     <div>
@@ -30,19 +28,19 @@ export default function Index() {
 
         <h1 className="text-3xl font-bold my-5">Ascendance Of A Bookworm</h1>
 
-        {!!lastReadChapter && (
-          <Link href={`/ascendance-of-a-bookworm/${lastReadChapter}`}>
+        {!!lastRead && (
+          <Link href={`/${slug}/${lastRead}`}>
             <a className="card text-lg mb-5">
-              Last Read - {AscendanceOfABookwormChapters[lastReadChapter].title}
+              Last Read - {chapters?.[lastRead]?.title}
             </a>
           </Link>
         )}
 
         <div>
-          {AscendanceOfABookwormChapters.map((chapter, index) => {
+          {chapters.map((chapter, index) => {
             return (
-              <p className="mb-2 text-lg">
-                <Link href={`/ascendance-of-a-bookworm/${index}`}>
+              <p key={chapter.title} className="mb-2 text-lg">
+                <Link href={`/${slug}/${index}`}>
                   <a>{chapter.title}</a>
                 </Link>
               </p>
@@ -52,4 +50,20 @@ export default function Index() {
       </main>
     </div>
   );
+}
+
+export async function getStaticProps(context) {
+  const chapters = await axios
+    .get("https://novelonly-api.herokuapp.com/api/v1/ascendance-of-a-bookworm")
+    .then((res) => {
+      return res.data;
+    });
+
+  return {
+    props: {
+      slug: "ascendance-of-a-bookworm",
+      chapters,
+    }, // will be passed to the page component as props
+    revalidate: 1800,
+  };
 }

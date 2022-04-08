@@ -142,33 +142,3 @@ export async function getStaticProps(context) {
     revalidate: 1800,
   };
 }
-
-// ChapterDetailPage.getInitialProps = async (ctx) => {
-//   let previousChapter = null;
-//   let nextChapter = null;
-
-//   if (ctx.query.id > 0) {
-//     previousChapter = {
-//       index: parseInt(ctx.query.id) - 1,
-//       ...TBATEChapters[parseInt(ctx.query.id) - 1],
-//     };
-//   } else {
-//     previousChapter = null;
-//   }
-
-//   if (ctx.query.id == TBATEChapters.length - 1) {
-//     nextChapter = null;
-//   } else {
-//     nextChapter = {
-//       index: parseInt(ctx.query.id) + 1,
-//       ...TBATEChapters[parseInt(ctx.query.id) + 1],
-//     };
-//   }
-
-//   return {
-//     id: ctx.query.id,
-//     currentChapter: TBATEChapters[ctx.query.id],
-//     previousChapter,
-//     nextChapter,
-//   };
-// };
